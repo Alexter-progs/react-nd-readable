@@ -28,6 +28,17 @@ class App extends Component {
       });
   }
 
+  formatDate(timestamp) {
+    let date = new Date(timestamp);
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+
+    return `${year}/${month}/${day} ${hours}:${minutes}`
+  }
+
   render() {
     return (
       <div>
@@ -55,7 +66,7 @@ class App extends Component {
                     </Avatar>
                   }
                   title={post.title}
-                  subheader={post.timestamp}
+                  subheader={this.formatDate(post.timestamp)}
                 />
 
                 <CardActions disableActionSpacing>
