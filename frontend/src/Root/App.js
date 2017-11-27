@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../images/logo.svg';
 import Header from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
