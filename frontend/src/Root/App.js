@@ -41,52 +41,52 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-      <Grid container className="App">
-        <Grid item xs={12}>
-          <Header position="static" color="primary">
-            <Toolbar>
-              <Typography type="title" color="inherit">
-                Readable
-              </Typography>
-            </Toolbar>
-          </Header>
-        </Grid>
-      </Grid>
-      <Route path='/' exact render={() => (<div>
-      {this.state.posts.map(post => (
-          <Grid container key={post.id}>
-            <Grid item xs={3} lg={3} md={3}/>
-            <Grid item xs={6} lg={6} md={6}>                
-              <Card>
-                <CardHeader
-                  avatar={
-                    <Avatar aria-label="Author">
-                      {post.author[0].toUpperCase()}
-                    </Avatar>
-                  }
-                  title={post.title}
-                  subheader={this.formatDate(post.timestamp)}
-                />
-
-                <CardActions disableActionSpacing>
-                  <IconButton aria-label="Add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
-                  <Link to={`/${post.category}/${post.id}`}>
-                    <Button dense color="primary">
-                      Learn More
-                    </Button>
-                  </Link>
-                </CardActions>
-              </Card>
-            </Grid>
-            <Grid item xs={3} lg={3} md={3}/>
+      <Grid>
+        <Grid container className="App">
+          <Grid item xs={12}>
+            <Header position="static" color="primary">
+              <Toolbar>
+                <Typography type="title" color="inherit">
+                  Readable
+                </Typography>
+              </Toolbar>
+            </Header>
           </Grid>
-        ))
-      }</div>)}/>
-      <Route exact path='/:category/:id' component={PostDetails}/>
-      </div>
+        </Grid>
+        <Route path='/' exact render={() => (<Grid>
+        {this.state.posts.map(post => (
+            <Grid container key={post.id}>
+              <Grid item xs={3} lg={3} md={3}/>
+              <Grid item xs={6} lg={6} md={6}>                
+                <Card>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="Author">
+                        {post.author[0].toUpperCase()}
+                      </Avatar>
+                    }
+                    title={post.title}
+                    subheader={this.formatDate(post.timestamp)}
+                  />
+
+                  <CardActions disableActionSpacing>
+                    <IconButton aria-label="Add to favorites">
+                      <FavoriteIcon />
+                    </IconButton>
+                    <Link to={`/${post.category}/${post.id}`}>
+                      <Button dense color="primary">
+                        Learn More
+                      </Button>
+                    </Link>
+                  </CardActions>
+                </Card>
+              </Grid>
+              <Grid item xs={3} lg={3} md={3}/>
+            </Grid>
+          ))
+        }</Grid>)}/>
+        <Route exact path='/:category/:id' component={PostDetails}/>
+      </Grid>
     )
   }
 }
