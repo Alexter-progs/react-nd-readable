@@ -62,7 +62,7 @@ class App extends Component {
                   <IconButton aria-label="Add to favorites">
                     <FavoriteIcon />
                   </IconButton>
-                  <Link to={`/postDetails/${post.id}`}>
+                  <Link to={`/${post.category}/${post.id}`}>
                     <Button dense color="primary">
                       Learn More
                     </Button>
@@ -74,7 +74,7 @@ class App extends Component {
           </Grid>
         ))
       }</div>)}/>
-      <Route exact path='/postDetails/:id' component={PostDetails}/>
+      <Route exact path='/:category/:id' component={PostDetails}/>
       </div>
     )
   }
