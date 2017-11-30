@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import Grid from 'material-ui/Grid'
 import Card, { CardHeader, CardActions } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
-import FavoriteIcon from 'material-ui-icons/Favorite'
+import RemoveCircleOutline from 'material-ui-icons/RemoveCircleOutline'
+import AddCircleOutline from 'material-ui-icons/AddCircleOutline'
+import Comment from 'material-ui-icons/Comment'
+import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import { Link } from 'react-router-dom'
 import Avatar from 'material-ui/Avatar'
@@ -17,8 +20,11 @@ export default class PostsList extends Component {
         fetch(url)
           .then((res) => { return(res.json()) })
           .then((data) => {
-            console.log(data);
-            this.setState({posts: data});
+            let posts = data.map(post => {
+                post.numberOfComments = 4
+                return post
+            })
+            this.setState({posts});
         });
     }
 
@@ -48,13 +54,23 @@ export default class PostsList extends Component {
                           </Avatar>
                         }
                         title={post.title}
-                        subheader={this.formatDate(post.timestamp)}
+                        subheader={`Posted by ${post.author} on ${this.formatDate(post.timestamp)}`}
                       />
     
                       <CardActions disableActionSpacing>
-                        <IconButton aria-label="Add to favorites">
-                          <FavoriteIcon />
+                        <IconButton aria-label="Add to favorites" color="accent">
+                          <RemoveCircleOutline />
                         </IconButton>
+                        <Grid>
+                            <Typography>{ post.voteScore }</Typography>
+                        </Grid>
+                        <IconButton aria-label="Add to favorites" color="primary">
+                          <AddCircleOutline />
+                        </IconButton>
+                        <IconButton><Comment/></IconButton>
+                        <Grid>
+                            <Typography>{ post.numberOfComments }</Typography>
+                        </Grid>
                         <Link to={`/${post.category}/${post.id}`}>
                           <Button dense color="primary">
                             Learn More
