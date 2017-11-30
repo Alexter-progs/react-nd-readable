@@ -3,7 +3,6 @@ import Grid from 'material-ui/Grid'
 import PostDetails from '../PostDetails/PostDetails'
 import { Route } from 'react-router-dom'
 
-import './App.css'
 import Header from '../Header/Header'
 import PostsList from '../PostsList/PostsList'
 
