@@ -19,7 +19,7 @@ export default class PostsList extends Component {
           .then((data) => {
             console.log(data);
             this.setState({posts: data});
-          });
+        });
     }
 
     formatDate(timestamp) {
