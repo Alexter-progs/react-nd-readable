@@ -9,7 +9,7 @@ import {
     ADD_POST 
 } from '../actions'
 
-function posts(state, action) {
+function posts(state = {}, action) {
     switch(action.type) {
         case EDIT_POST:
             return {
