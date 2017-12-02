@@ -29,14 +29,16 @@ export function removePost(id) {
     }
 }
 
-export function upvotePost() {
+export function upvotePost(id) {
     return {
-        type: UPVOTE_POST
+        type: UPVOTE_POST,
+        id
     }
 }
 
-export function downvotePost() {
+export function downvotePost(id) {
     return {
-        type: DOWNVOTE_POST
+        type: DOWNVOTE_POST,
+        id
     }
 }
