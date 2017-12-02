@@ -1,6 +1,8 @@
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const REMOVE_COMMENT = 'DELETE_COMMENT'
+export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
+export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
 
 export function addComment({ id, timestamp, body, owner, postId }) {
     return {
@@ -24,6 +26,20 @@ export function editComment({ timestamp, body }) {
 export function deleteComment(id) {
     return {
         type: REMOVE_COMMENT,
+        id
+    }
+}
+
+export function upvoteComment(id) {
+    return {
+        type: UPVOTE_COMMENT,
+        id
+    }
+}
+
+export function downvoteComment(id) {
+    return {
+        type: DOWNVOTE_COMMENT,
         id
     }
 }
