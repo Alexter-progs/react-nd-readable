@@ -27,6 +27,10 @@ function posts(state, action) {
             return {
                 ...state
             }
+        case EDIT_COMMENT:
+            return {
+                ...state
+            }
         case UPVOTE_POST:
             return {
                 ...state
@@ -39,5 +43,11 @@ function posts(state, action) {
             return {
                 ...state
             }
+        default: 
+            return {
+                ...state
+            }
     }
 }
+
+export default posts
