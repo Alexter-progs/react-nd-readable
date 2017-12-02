@@ -9,7 +9,7 @@ import App from './Root/App'
 import reducer from './reducers'
 import './index.css'
 
-const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION__ || compose
+const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
     reducer,
