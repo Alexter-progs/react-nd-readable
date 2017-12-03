@@ -9,6 +9,7 @@ import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import { Link } from 'react-router-dom'
 import Avatar from 'material-ui/Avatar'
+import { formatDate } from '../utils'
 
 export default class PostsList extends Component {
     state = {
@@ -28,17 +29,6 @@ export default class PostsList extends Component {
         });
     }
 
-    formatDate(timestamp) {
-        let date = new Date(timestamp);
-        let year = date.getFullYear();
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-    
-        return `${year}/${month}/${day} ${hours}:${minutes}`
-    }
-
     render() {
         return (
             <Grid>
@@ -54,7 +44,7 @@ export default class PostsList extends Component {
                           </Avatar>
                         }
                         title={post.title}
-                        subheader={`Posted by ${post.author} on ${this.formatDate(post.timestamp)}`}
+                        subheader={`Posted by ${post.author} on ${formatDate(post.timestamp)}`}
                       />
     
                       <CardActions disableActionSpacing>
