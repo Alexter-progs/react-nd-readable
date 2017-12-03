@@ -57,7 +57,7 @@ export default class PostDetails extends Component {
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}/>
                 </Grid>
-                <Grid container alignContent='space-around'>
+                {comments.length > 0 ? <Grid container alignContent='space-around'>
                     <Grid item xs={3} lg={3} md={3}/>
                     <Grid item xs={6} lg={6} md={6}>
                         <Typography type='subheading'>
@@ -65,7 +65,7 @@ export default class PostDetails extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}/>
-                </Grid>
+                </Grid> : null}
                 {comments.map(comment => (
                     <Grid key={comment.id} container alignContent='center'>
                         <Grid item xs={3} lg={3} md={3}/>
@@ -75,13 +75,14 @@ export default class PostDetails extends Component {
                         <Grid item xs={3} lg={3} md={3}/>
                     </Grid>
                 ))}
-                <Grid container>
+                {comments.length > 0 ? <Grid container>
                     <Grid item xs={3} lg={3} md={3}/>
                     <Grid item xs={6} lg={6} md={6}>
                         Add Comment
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}/>
-                </Grid>
+                </Grid> : null
+                }
             </Grid>
         )
     }

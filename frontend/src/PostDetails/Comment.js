@@ -16,7 +16,7 @@ export default class Comment extends Component {
             <Card>
                 <CardContent>
                     <Typography style={{fontWeight: 'bold'}}>
-                        {author} <Typography noWrap> at {formatDate(timestamp)}</Typography>
+                    {author}<Typography noWrap> at {formatDate(timestamp)}</Typography>
                     </Typography>
                     <Divider/>
                     <Typography>{body}</Typography>
