@@ -17,10 +17,7 @@ export default class Header extends Component {
         fetch(url)
             .then((res) => { return(res.json()) })
             .then((data) => {
-                let categories = data.categories.map(category => {
-                    return capitalize(category.name)
-                })
-                this.setState({categories})
+                this.setState({categories: data.categories})
             });
     }
 
@@ -30,9 +27,25 @@ export default class Header extends Component {
                 <Grid item xs={12}>
                     <AppBar position="static" color="primary">
                         <Toolbar>
-                            <Typography type="title" color="inherit">
-                                <Link to='/'>Readable</Link>
-                            </Typography>
+                            <Grid container>
+                            <Grid item>
+                                <Typography type="title" color="inherit">
+                                    Readable
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography type="title" color="inherit">
+                                    <Link to='/'>All Posts</Link>
+                                </Typography>
+                            </Grid>
+                            {this.state.categories.map(category => (
+                                    <Grid item key={category.name}>
+                                        <Typography type="title" color="inherit">
+                                            <Link to={`/${category.path}`}>{capitalize(category.name)}</Link>
+                                        </Typography>
+                                    </Grid>
+                            ))}
+                            </Grid>
                         </Toolbar>
                     </AppBar>
                 </Grid>
