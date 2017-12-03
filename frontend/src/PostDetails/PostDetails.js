@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
+import CommentIcon from 'material-ui-icons/Comment'
+import Button from 'material-ui/Button'
 
 import Comment from './Comment'
-import { formatDate } from '../utils/index';
+import { formatDate } from '../utils/index'
 
 export default class PostDetails extends Component {
     state = {
@@ -78,7 +80,9 @@ export default class PostDetails extends Component {
                 <Grid container>
                     <Grid item xs={3} lg={3} md={3}/>
                     <Grid item xs={6} lg={6} md={6}>
-                        Add Comment
+                        <Button fab color="primary" aria-label="add">
+                            <CommentIcon />
+                        </Button>
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}/>
                 </Grid>
