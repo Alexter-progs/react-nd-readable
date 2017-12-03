@@ -32,7 +32,7 @@ export default class Comment extends Component {
                             </Button>
                         </Grid>
                         <Grid item xs={1} lg={1} md={1}>
-                            <Button fab color="primary" aria-label="add">
+                            <Button fab color="primary" aria-label="delete">
                                 <DeleteIcon />
                             </Button>
                         </Grid>
