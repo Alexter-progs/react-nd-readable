@@ -75,14 +75,13 @@ export default class PostDetails extends Component {
                         <Grid item xs={3} lg={3} md={3}/>
                     </Grid>
                 ))}
-                {comments.length > 0 ? <Grid container>
+                <Grid container>
                     <Grid item xs={3} lg={3} md={3}/>
                     <Grid item xs={6} lg={6} md={6}>
                         Add Comment
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}/>
-                </Grid> : null
-                }
+                </Grid>
             </Grid>
         )
     }
