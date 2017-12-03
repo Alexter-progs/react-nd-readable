@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar'
 import Grid from 'material-ui/Grid'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
+import { Link } from 'react-router-dom'
 
 import { capitalize } from '../utils'
 
@@ -30,7 +31,7 @@ export default class Header extends Component {
                     <AppBar position="static" color="primary">
                         <Toolbar>
                             <Typography type="title" color="inherit">
-                                Readable
+                                <Link to='/'>Readable</Link>
                             </Typography>
                         </Toolbar>
                     </AppBar>
