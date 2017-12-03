@@ -27,12 +27,12 @@ export default class Comment extends Component {
                         </Grid>
                         <Grid item xs={7} lg={7} md={7}/>
                         <Grid item xs={1} lg={1} md={1}>
-                            <Button fab color="primary" aria-label="add" style={{width: '50px', height: '50px'}}>
+                            <Button fab color="primary" aria-label="add">
                                 <ModeEditIcon />
                             </Button>
                         </Grid>
                         <Grid item xs={1} lg={1} md={1}>
-                            <Button fab color="primary" aria-label="add" style={{width: '50px', height: '50px'}}>
+                            <Button fab color="primary" aria-label="add">
                                 <DeleteIcon />
                             </Button>
                         </Grid>
