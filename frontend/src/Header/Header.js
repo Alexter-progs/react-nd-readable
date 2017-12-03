@@ -4,6 +4,8 @@ import Grid from 'material-ui/Grid'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 
+import { capitalize } from '../utils'
+
 export default class Header extends Component {
     state = {
         categories: []
@@ -15,18 +17,10 @@ export default class Header extends Component {
             .then((res) => { return(res.json()) })
             .then((data) => {
                 let categories = data.categories.map(category => {
-                    return this.capitalize(category.name)
+                    return capitalize(category.name)
                 })
                 this.setState({categories})
             });
-    }
-
-    capitalize = (value) => {
-        if(value && typeof value === 'string') {
-            return value.charAt(0).toUpperCase() + value.slice(1)
-        } else {
-            return value
-        }
     }
 
     render() {
