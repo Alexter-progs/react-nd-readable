@@ -3,6 +3,8 @@ import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import CommentIcon from 'material-ui-icons/Comment'
 import Button from 'material-ui/Button'
+import ModeEditIcon from 'material-ui-icons/ModeEdit'
+import DeleteIcon from 'material-ui-icons/Delete'
 
 import Comment from './Comment'
 import { formatDate } from '../utils/index'
@@ -48,7 +50,14 @@ export default class PostDetails extends Component {
                             by {post.author} at {formatDate(post.timestamp)}
                         </Typography>
                     </Grid>
-                    <Grid item xs={3} lg={3} md={3}/>
+                    <Grid item xs={3} lg={3} md={3}>
+                        <Button fab color="primary" aria-label="add">
+                            <ModeEditIcon />
+                        </Button>
+                        <Button fab color="primary" aria-label="delete">
+                            <DeleteIcon />
+                        </Button>
+                    </Grid>
                 </Grid>
                 <Grid container>
                     <Grid item xs={3} lg={3} md={3}/>
