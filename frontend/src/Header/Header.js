@@ -4,6 +4,8 @@ import Grid from 'material-ui/Grid'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import { Link } from 'react-router-dom'
+import AddIcon from 'material-ui-icons/Add'
+import Button from 'material-ui/Button'
 
 import { capitalize } from '../utils'
 
@@ -45,6 +47,11 @@ export default class Header extends Component {
                                         </Typography>
                                     </Grid>
                             ))}
+                            </Grid>
+                            <Grid item>
+                                <Button fab color="accent" aria-label="delete">
+                                    <AddIcon />
+                                </Button>
                             </Grid>
                         </Toolbar>
                     </AppBar>
