@@ -12,6 +12,7 @@ class App extends Component {
       <Grid>
         <Header/>
         <Route path='/' exact component={PostsList}/>
+        <Route path='/:category' exact component={PostsList}/>
         <Route path='/:category/:id' exact component={PostDetails}/>
       </Grid>
     )

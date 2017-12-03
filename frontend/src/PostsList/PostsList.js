@@ -18,6 +18,8 @@ export default class PostsList extends Component {
 
     componentDidMount() {
         const url = `${process.env.REACT_APP_BACKEND}/posts`;
+        const category = this.props.match.params.category
+        console.log(this.props);
         fetch(url)
           .then((res) => { return(res.json()) })
           .then((data) => {
@@ -25,6 +27,10 @@ export default class PostsList extends Component {
                 post.numberOfComments = 4
                 return post
             })
+            if(category) {
+              posts = posts.filter(post => post.category === category)
+            }
+
             this.setState({posts});
         });
     }
