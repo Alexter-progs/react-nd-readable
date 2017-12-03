@@ -22,8 +22,9 @@ export default class Comment extends Component {
                     <Grid container alignItems='flex-end'>
                         <Grid item xs={3} lg={3} md={3}>
                             <Typography style={{fontWeight: 'bold'}}>
-                            {author}<Typography noWrap> at {formatDate(timestamp)}</Typography>
+                                {author}
                             </Typography>
+                            <Typography> at {formatDate(timestamp)}</Typography>
                         </Grid>
                         <Grid item xs={7} lg={7} md={7}/>
                         <Grid item xs={1} lg={1} md={1}>
