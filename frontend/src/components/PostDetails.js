@@ -30,15 +30,12 @@ export default class PostDetails extends Component {
             .then(result => (result.json()))
             .then(post => {
                 this.setState(state => ({ post }))
-                console.log(this.state);
             })
             
         fetch(commentsUrl)
         .then(result => (result.json()))
         .then(comments => {
-            console.log(comments)
             this.setState(state => ({ comments }))
-            console.log(this.state);
         })
     }
 
