@@ -9,29 +9,18 @@ import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import { Link } from 'react-router-dom'
 import Avatar from 'material-ui/Avatar'
+import { connect } from 'react-redux'
 import { formatDate } from '../utils'
+import { fetchPosts } from '../actions/posts'
 
-export default class PostsList extends Component {
-    state = {
-        posts: []
-    }
-
+class PostsList extends Component {
     componentDidMount() {
-        const url = `${process.env.REACT_APP_BACKEND}/posts`;
-        fetch(url)
-          .then((res) => { return(res.json()) })
-          .then((data) => {
-            let posts = data.map(post => {
-                post.numberOfComments = 4
-                return post
-            })
-            this.setState({posts});
-        });
+      this.props.fetchPosts()
     }
 
     render() {
         const category = this.props.match.params.category
-        let posts = this.state.posts
+        let posts = this.props.posts
         if(category) {
           posts = posts.filter(post => post.category === category)
         }
@@ -81,3 +70,18 @@ export default class PostsList extends Component {
         )
     }
 }
+
+const mapStateToProps = ((state, props) => {
+  return {
+      posts: Object.keys(state.posts)
+                      .map((key) => ({ 
+                          ...state.posts[key]
+                      }))
+  }
+})
+
+const mapDispatchToProps = (dispatch => ({
+  fetchPosts: () => dispatch(fetchPosts())
+}))
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsList)

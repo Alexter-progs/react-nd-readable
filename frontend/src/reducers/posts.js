@@ -4,6 +4,7 @@ import {
     REMOVE_POST,
     UPVOTE_POST,
     DOWNVOTE_POST,
+    FETCH_POSTS,
 } from '../actions/posts'
 
 export function posts(state = {}, action) {
@@ -11,6 +12,11 @@ export function posts(state = {}, action) {
         case ADD_POST:
             return {
                 ...state
+            }
+        case FETCH_POSTS: 
+            return {
+                ...state,
+                ...action.posts
             }
         case EDIT_POST:
             return {
