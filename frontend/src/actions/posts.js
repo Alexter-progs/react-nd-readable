@@ -14,6 +14,13 @@ export function addPost({ id, timestamp, title, body, owner, category }) {
         category
     }
 }
+
+export function addPostAsync() {
+    return (dispatch) => {
+        fetch()
+    }
+}
+
 export function editPost({ title, body }) {
     return {
         type: EDIT_POST,

@@ -12,12 +12,13 @@ import Dialog, {
   DialogContent,
   DialogTitle,
 } from 'material-ui/Dialog'
+import { connect } from 'react-redux'
 
+import { fetchCategories } from '../actions/categories'
 import { capitalize } from '../utils'
 
-export default class Header extends Component {
+class Header extends Component {
     state = {
-        categories: [],
         open: false,
     }
     
@@ -30,15 +31,11 @@ export default class Header extends Component {
     };
 
     componentDidMount() {
-        const url = `${process.env.REACT_APP_BACKEND}/categories`;
-        fetch(url)
-            .then((res) => { return(res.json()) })
-            .then((data) => {
-                this.setState({categories: data.categories})
-            });
+        this.props.fetchCategories()
     }
 
     render() {
+        let categories = this.props.categories
         return(
             <Grid container className="App">
                 <Grid item xs={12}>
@@ -55,7 +52,7 @@ export default class Header extends Component {
                                     <Link to='/'>All Posts</Link>
                                 </Typography>
                             </Grid>
-                            {this.state.categories.map(category => (
+                            {categories.map(category => (
                                     <Grid item key={category.name}>
                                         <Typography type="title" color="inherit">
                                             <Link to={`/${category.path}`}>{capitalize(category.name)}</Link>
@@ -122,3 +119,20 @@ export default class Header extends Component {
         )
     }
 }
+
+const mapStateToProps = ((state, props) => {
+    return {
+        categories: Object.keys(state.categories)
+                        .map((key) => ({ 
+                            name: state.categories[key].name, 
+                            path: state.categories[key].path
+                        }))
+    }
+})
+
+const mapDispatchToProps = (dispatch => ({
+    fetchCategories: () => dispatch(fetchCategories())
+}))
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
+
