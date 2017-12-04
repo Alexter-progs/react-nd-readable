@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Grid from 'material-ui/Grid'
-import PostDetails from '../PostDetails/PostDetails'
 import { Route } from 'react-router-dom'
 
-import Header from '../Header/Header'
-import PostsList from '../PostsList/PostsList'
+import Header from './Header'
+import PostsList from './PostsList'
+import PostDetails from './PostDetails'
 
 class App extends Component {
   render() {
