@@ -5,6 +5,12 @@ import CommentIcon from 'material-ui-icons/Comment'
 import Button from 'material-ui/Button'
 import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import DeleteIcon from 'material-ui-icons/Delete'
+import TextField from 'material-ui/TextField'
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from 'material-ui/Dialog'
 
 import Comment from './Comment'
 import { formatDate } from '../utils/index'
@@ -36,6 +42,14 @@ export default class PostDetails extends Component {
         })
     }
 
+    handleClickOpen = () => {
+        this.setState({ open: true });
+        };
+    
+    handleRequestClose = () => {
+        this.setState({ open: false });
+    };
+
     render() {
         const { comments, post } = this.state
         return(
@@ -51,7 +65,7 @@ export default class PostDetails extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}>
-                        <Button fab color="primary" aria-label="add">
+                        <Button fab color="primary" aria-label="add" onClick={this.handleClickOpen}>
                             <ModeEditIcon />
                         </Button>
                         <Button fab color="primary" aria-label="delete">
@@ -95,6 +109,47 @@ export default class PostDetails extends Component {
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}/>
                 </Grid>
+
+                <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
+                    <DialogTitle>Add new post</DialogTitle>
+                    <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="title"
+                        label="Title"
+                        type="text"
+                        value={post.title}
+                        fullWidth
+                    />
+                    <TextField
+                        autoFocus
+                        multiline
+                        margin="dense"
+                        id="body"
+                        label="Body"
+                        type="text"
+                        fullWidth
+                        value={post.body}
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="category"
+                        label="Choose category"
+                        type="text"
+                        fullWidth
+                    />
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={this.handleRequestClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={this.handleRequestClose} color="primary">
+                        Create
+                    </Button>
+                    </DialogActions>
+                </Dialog>
             </Grid>
         )
     }
