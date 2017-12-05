@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import AddIcon from 'material-ui-icons/Add'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
+import MenuItem from 'material-ui/Menu/MenuItem'
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -20,6 +21,7 @@ import { capitalize } from '../utils'
 class Header extends Component {
     state = {
         open: false,
+        selectedCategory: ''
     }
     
     handleClickOpen = () => {
@@ -99,12 +101,24 @@ class Header extends Component {
                     />
                     <TextField
                         autoFocus
+                        select
                         margin="dense"
                         id="category"
                         label="Choose category"
                         type="text"
-                        fullWidth
-                    />
+                        value={this.state.selectedCategory}
+                        onChange={(event) => {
+                            this.setState(() => ({
+                                selectedCategory: event.target.value
+                            }))
+                        }}
+                        fullWidth>
+                        {categories.map(category => (
+                            <MenuItem key={category.name} value={category.name}>
+                                {capitalize(category.name)}
+                            </MenuItem>
+                        ))}
+                        </TextField>
                     </DialogContent>
                     <DialogActions>
                     <Button onClick={this.handleRequestClose} color="primary">
