@@ -12,6 +12,8 @@ import Avatar from 'material-ui/Avatar'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchComments } from '../actions/comments';
+import ModeEditIcon from 'material-ui-icons/ModeEdit'
+import DeleteIcon from 'material-ui-icons/Delete'
 
 class PostCard extends Component {
     componentDidMount() {
@@ -46,9 +48,7 @@ class PostCard extends Component {
                   <IconButton aria-label="Add to favorites" color="accent">
                     <RemoveCircleOutline />
                   </IconButton>
-                  <Grid>
-                      <Typography>{ post.voteScore }</Typography>
-                  </Grid>
+                    <Typography>{ post.voteScore }</Typography>
                   <IconButton aria-label="Add to favorites" color="primary">
                     <AddCircleOutline />
                   </IconButton>
@@ -58,9 +58,9 @@ class PostCard extends Component {
                     </Button>
                   </Link>
                   <IconButton><Comment/></IconButton>
-                  <Grid>
-                      <Typography>{ numberOfComments }</Typography>
-                  </Grid>
+                  <Typography>{ numberOfComments }</Typography>
+                    <ModeEditIcon />
+                    <DeleteIcon />
                 </CardActions>
               </Card>
             </Grid>

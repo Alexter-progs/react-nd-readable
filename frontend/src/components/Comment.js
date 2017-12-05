@@ -8,7 +8,6 @@ import RemoveCircleOutline from 'material-ui-icons/RemoveCircleOutline'
 import AddCircleOutline from 'material-ui-icons/AddCircleOutline'
 import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import DeleteIcon from 'material-ui-icons/Delete'
-import Button from 'material-ui/Button'
 import Grid from 'material-ui/Grid'
 
 export default class Comment extends Component {
@@ -27,15 +26,9 @@ export default class Comment extends Component {
                             <Typography> at {formatDate(timestamp)}</Typography>
                         </Grid>
                         <Grid item xs={7} lg={7} md={7}/>
-                        <Grid item xs={1} lg={1} md={1}>
-                            <Button fab color="primary" aria-label="add">
-                                <ModeEditIcon />
-                            </Button>
-                        </Grid>
-                        <Grid item xs={1} lg={1} md={1}>
-                            <Button fab color="primary" aria-label="delete">
-                                <DeleteIcon />
-                            </Button>
+                        <Grid item xs={2} lg={2} md={2}>
+                            <ModeEditIcon />
+                            <DeleteIcon />
                         </Grid>
                     </Grid>
                     

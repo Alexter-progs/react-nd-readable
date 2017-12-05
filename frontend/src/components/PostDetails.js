@@ -62,12 +62,8 @@ export default class PostDetails extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}>
-                        <Button fab color="primary" aria-label="add" onClick={this.handleClickOpen}>
                             <ModeEditIcon />
-                        </Button>
-                        <Button fab color="primary" aria-label="delete">
                             <DeleteIcon />
-                        </Button>
                     </Grid>
                 </Grid>
                 <Grid container>
