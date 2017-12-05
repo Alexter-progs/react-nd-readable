@@ -21,24 +21,7 @@ class PostDetails extends Component {
         open: false
     }
 
-    componentDidMount() {
-        const { id } = this.props.match.params
-        const postsUrl = `${process.env.REACT_APP_BACKEND}/posts/${id}`;
-        const commentsUrl = `${process.env.REACT_APP_BACKEND}/posts/${id}/comments`;
-
-        fetch(postsUrl)
-            .then(result => (result.json()))
-            .then(post => {
-                this.setState(state => ({ post }))
-            })
-            
-        fetch(commentsUrl)
-        .then(result => (result.json()))
-        .then(comments => {
-            this.setState(state => ({ comments }))
-        })
-    }
-
+    
     handleClickOpen = () => {
         this.setState({ open: true });
         };
