@@ -39,7 +39,6 @@ export function addPost(post) {
             timestamp,
             ...post
         }).then(post => {
-            console.log(post);
             dispatch({
                 type: ADD_POST,
                 post: {

@@ -70,7 +70,10 @@ class PostDetails extends Component {
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}>
                             <ModeEditIcon />
-                            <DeleteIcon onClick={() => {this.props.removePost(post.id)}}/>
+                            <DeleteIcon onClick={() => {
+                                    this.props.removePost(post.id)
+                                    this.props.history.push('/')
+                                }}/>
                     </Grid>
                 </Grid>
                 <Grid container>
