@@ -11,14 +11,14 @@ import Dialog, {
   DialogContent,
   DialogTitle,
 } from 'material-ui/Dialog'
+import { connect } from 'react-redux'
 
 import Comment from './Comment'
 import { formatDate } from '../utils/index'
 
-export default class PostDetails extends Component {
+class PostDetails extends Component {
     state = {
-        post: { title: '' },
-        comments: []
+        open: false
     }
 
     componentDidMount() {
@@ -48,7 +48,8 @@ export default class PostDetails extends Component {
     };
 
     render() {
-        const { comments, post } = this.state
+        const { comments, post } = this.props
+
         return(
             <Grid>
                 <Grid container>
@@ -147,3 +148,17 @@ export default class PostDetails extends Component {
         )
     }
 }
+
+const mapStateToProps = ((state, props) => {
+    const postId = props.match.params.id
+    return {
+        post: state.posts[postId],
+        comments: Object.keys(state.comments).filter(key => {
+                        return postId === state.comments[key].parentId
+                    }).map(key => {
+                        return state.comments[key]
+                    })
+    }
+})
+
+export default connect(mapStateToProps)(PostDetails)
