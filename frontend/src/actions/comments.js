@@ -46,7 +46,7 @@ export function editComment({ timestamp, body }) {
     }
 }
 
-export function deleteComment(id) {
+export function removeComment(id) {
     return (dispatch) => {
         const url = `${process.env.REACT_APP_BACKEND}/comments/${id}`
         axios.delete(url).then(() => {
