@@ -23,8 +23,14 @@ export function comments(state = {}, action) {
                 ...state
         }
         case REMOVE_COMMENT: 
+            let newState = Object.keys(state)
+                .filter((key) => key !== action.id)
+                .reduce((obj, key) => {
+                    obj[key] = state[key]
+                    return obj
+                }, {})
             return {
-                ...state
+                ...newState
             }
         case UPVOTE_COMMENT: 
             return {

@@ -47,10 +47,17 @@ export function editComment({ timestamp, body }) {
 }
 
 export function deleteComment(id) {
-    return {
-        type: REMOVE_COMMENT,
-        id
+    return (dispatch) => {
+        const url = `${process.env.REACT_APP_BACKEND}/comments/${id}`
+        axios.delete(url).then(() => {
+            dispatch({
+                type: REMOVE_COMMENT,
+                id
+            })
+        })
     }
+    
+
 }
 
 export function upvoteComment(id) {

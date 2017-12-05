@@ -10,7 +10,7 @@ import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import DeleteIcon from 'material-ui-icons/Delete'
 import Grid from 'material-ui/Grid'
 
-import { upvoteComment, downvoteComment } from '../actions/comments'
+import { upvoteComment, downvoteComment, deleteComment } from '../actions/comments'
 import { connect } from 'react-redux'
 
 class Comment extends Component {
@@ -31,7 +31,7 @@ class Comment extends Component {
                         <Grid item xs={7} lg={7} md={7}/>
                         <Grid item xs={2} lg={2} md={2}>
                             <ModeEditIcon />
-                            <DeleteIcon />
+                            <DeleteIcon onClick={() => {this.props.deleteComment(id)}}/>
                         </Grid>
                     </Grid>
                     
@@ -56,7 +56,8 @@ class Comment extends Component {
 
 const mapDispatchToProps = (dispatch => ({
     upvoteComment: (postId) => dispatch(upvoteComment(postId)),
-    downvoteComment: (postId) => dispatch(downvoteComment(postId))
+    downvoteComment: (postId) => dispatch(downvoteComment(postId)),
+    deleteComment: (commentId) => dispatch(deleteComment(commentId))
 }))
 
 export default connect(null, mapDispatchToProps)(Comment)
