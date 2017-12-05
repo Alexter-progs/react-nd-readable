@@ -28,9 +28,9 @@ class PostsList extends Component {
 const mapStateToProps = ((state, props) => {
   return {
       posts: Object.keys(state.posts)
-                      .map((key) => ({ 
-                          ...state.posts[key]
-                      }))
+              .map((key) => ({ 
+                ...state.posts[key]
+              }))
   }
 })
 

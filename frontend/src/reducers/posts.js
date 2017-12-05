@@ -11,12 +11,16 @@ export function posts(state = {}, action) {
     switch(action.type) {
         case ADD_POST:
             return {
-                ...state
+                ...state,
+                [action.post.id]: {
+                    ...state[action.post.id],
+                    ...action.post
+                }
             }
-        case FETCH_POSTS: 
+        case FETCH_POSTS:
             return {
                 ...state,
-                ...action.posts,
+                ...action.posts
             }
         case EDIT_POST:
             return {

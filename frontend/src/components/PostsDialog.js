@@ -10,6 +10,7 @@ import Dialog, {
 import { connect } from 'react-redux'
 
 import { capitalize } from '../utils'
+import { addPost } from '../actions/posts'
 
 class PostsDialog extends Component {
     state = {
@@ -19,12 +20,6 @@ class PostsDialog extends Component {
         category: ''
     }
 
-    componentWillReceiveProps(props) {
-        this.setState(() => ({
-            open: props.open
-        }))
-    }
-    
     handleRequestClose = () => {
         this.props.onDialogClose()
     };
@@ -36,8 +31,13 @@ class PostsDialog extends Component {
     }
 
     handleRequestSave = () => {
-        const { title, body, author, category } = this.state
-        //TODO add redux action for saving
+        if(this.props.editMode) {
+        } else {
+            this.props.addPost({
+                ...this.state
+            })
+        }
+
         this.props.onDialogClose()
     }
 
@@ -105,4 +105,8 @@ class PostsDialog extends Component {
     }
 }
 
-export default connect()(PostsDialog)
+const mapDispatchToProps = (dispatch) => ({
+    addPost: (post) => dispatch(addPost(post))
+})
+
+export default connect(null, mapDispatchToProps)(PostsDialog)

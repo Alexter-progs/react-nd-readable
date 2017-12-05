@@ -72,7 +72,11 @@ class PostCard extends Component {
 
 const mapStateToProps = ((state, props) => {
     return {
-        comments: state.comments[props.post.id]
+        comments: Object.keys(state.comments).filter(key => {
+                    return state.comments[key].parentId === props.post.id
+                  }).map((key) => {
+                    return state.comments[key]
+                  })
     }
   })
   

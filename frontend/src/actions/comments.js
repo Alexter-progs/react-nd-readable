@@ -1,18 +1,25 @@
+import axios from 'axios'
+
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const REMOVE_COMMENT = 'DELETE_COMMENT'
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
-export const FETCH_COMMENTS_FOR_POST = 'FETCH_COMMENTS_FOR_POST'
+export const FETCH_COMMENTS = 'FETCH_COMMENTS'
 
 export function fetchComments(postId) {
     return (dispatch) => {
         const url = `${process.env.REACT_APP_BACKEND}/posts/${postId}/comments`;
-        fetch(url)
-            .then(res => res.json())
-            .then((comments) => {
+        axios.get(url)
+            .then(({data}) => {
+                let comments = data;
+                comments = comments.reduce((obj, comment) => {
+                    obj[comment.id] = comment
+                    return obj
+                }, {})
+
                 dispatch({
-                    type: FETCH_COMMENTS_FOR_POST,
+                    type: FETCH_COMMENTS,
                     postId,
                     comments
                 })

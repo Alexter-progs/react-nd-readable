@@ -2,18 +2,15 @@ import {
     ADD_COMMENT,
     EDIT_COMMENT,
     REMOVE_COMMENT,
-    FETCH_COMMENTS_FOR_POST
+    FETCH_COMMENTS
 } from '../actions/comments'
 
 export function comments(state = {}, action) {
     switch(action.type) {
-        case FETCH_COMMENTS_FOR_POST:
+        case FETCH_COMMENTS:
             return {
                 ...state,
-                [action.postId]: {
-                    ...state[action.postId],
-                    ...action.comments
-                }
+                ...action.comments
             }
         case ADD_COMMENT:
             return {

@@ -64,7 +64,7 @@ class Header extends Component {
                         </Toolbar>
                     </AppBar>
                 </Grid>
-                <PostsDialog categories={this.props.categories} open={this.state.isDialogOpened} onDialogClose={this.onDialogClose}/>
+                <PostsDialog categories={this.props.categories} open={this.state.isDialogOpened} onDialogClose={this.onDialogClose} editMode={false}/>
             </Grid>
         )
     }
