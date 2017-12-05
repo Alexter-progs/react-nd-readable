@@ -16,7 +16,7 @@ export function posts(state = {}, action) {
         case FETCH_POSTS: 
             return {
                 ...state,
-                ...action.posts
+                ...action.posts,
             }
         case EDIT_POST:
             return {

@@ -9,14 +9,13 @@ export function fetchPosts() {
     return (dispatch) => {
         const url = `${process.env.REACT_APP_BACKEND}/posts`;
         fetch(url)
-          .then((res) => { return(res.json()) })
-          .then((posts) => {
-              console.log(posts);
-            dispatch({
-                type: FETCH_POSTS,
-                posts
+            .then(res => res.json())
+            .then((posts) => {
+                dispatch({
+                    type: FETCH_POSTS,
+                    posts
+                })
             })
-        });
     }
 }
 
