@@ -10,10 +10,13 @@ import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import DeleteIcon from 'material-ui-icons/Delete'
 import Grid from 'material-ui/Grid'
 
-export default class Comment extends Component {
+import { upvoteComment, downvoteComment } from '../actions/comments'
+import { connect } from 'react-redux'
+
+class Comment extends Component {
 
     render() {
-        const { author, body, voteScore, timestamp} = this.props
+        const { author, body, voteScore, timestamp, id} = this.props
         
         return (
             <Card>
@@ -36,13 +39,13 @@ export default class Comment extends Component {
                     <Typography>{body}</Typography>
                 </CardContent>
                 <CardActions>
-                    <IconButton  color="accent">
+                    <IconButton  color="accent" onClick={() => {this.props.downvoteComment(id)}}>
                         <RemoveCircleOutline />
                     </IconButton>
                     <Typography>
                         {voteScore}
                     </Typography>
-                    <IconButton  color="primary">
+                    <IconButton  color="primary" onClick={() => {this.props.upvoteComment(id)}}>
                           <AddCircleOutline />
                     </IconButton>
                 </CardActions>
@@ -50,3 +53,10 @@ export default class Comment extends Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch => ({
+    upvoteComment: (postId) => dispatch(upvoteComment(postId)),
+    downvoteComment: (postId) => dispatch(downvoteComment(postId))
+}))
+
+export default connect(null, mapDispatchToProps)(Comment)

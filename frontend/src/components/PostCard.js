@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import { fetchComments } from '../actions/comments';
 import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import DeleteIcon from 'material-ui-icons/Delete'
+import {  upvotePost, downvotePost } from '../actions/posts'
 
 class PostCard extends Component {
     componentDidMount() {
@@ -45,11 +46,11 @@ class PostCard extends Component {
                 />
 
                 <CardActions disableActionSpacing>
-                  <IconButton aria-label="Add to favorites" color="accent">
+                  <IconButton aria-label="Add to favorites" color="accent" onClick={() => {this.props.downvotePost(post.id)}}>
                     <RemoveCircleOutline />
                   </IconButton>
                     <Typography>{ post.voteScore }</Typography>
-                  <IconButton aria-label="Add to favorites" color="primary">
+                  <IconButton aria-label="Add to favorites" color="primary" onClick={() => {this.props.upvotePost(post.id)}}>
                     <AddCircleOutline />
                   </IconButton>
                   <Link to={`/${post.category}/${post.id}`}>
@@ -81,7 +82,9 @@ const mapStateToProps = ((state, props) => {
   })
   
   const mapDispatchToProps = (dispatch => ({
-    fetchComments: (postId) => dispatch(fetchComments(postId))
+    fetchComments: (postId) => dispatch(fetchComments(postId)),
+    upvotePost: (postId) => dispatch(upvotePost(postId)),
+    downvotePost: (postId) => dispatch(downvotePost(postId))
   }))
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostCard)

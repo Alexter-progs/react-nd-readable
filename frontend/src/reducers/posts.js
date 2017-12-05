@@ -32,11 +32,19 @@ export function posts(state = {}, action) {
             }
         case UPVOTE_POST:
             return {
-                ...state
+                ...state,
+                [action.id]: {
+                    ...state[action.id],
+                    voteScore: state[action.id].voteScore + 1
+                }
             }
         case DOWNVOTE_POST:
             return {
-                ...state
+                ...state,
+                [action.id]: {
+                    ...state[action.id],
+                    voteScore: state[action.id].voteScore - 1
+                }
             }
         default: 
             return {

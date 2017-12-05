@@ -6,12 +6,17 @@ import Button from 'material-ui/Button'
 import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import DeleteIcon from 'material-ui-icons/Delete'
 import TextField from 'material-ui/TextField'
+import IconButton from 'material-ui/IconButton'
+import RemoveCircleOutline from 'material-ui-icons/RemoveCircleOutline'
+import AddCircleOutline from 'material-ui-icons/AddCircleOutline'
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogTitle,
 } from 'material-ui/Dialog'
 import { connect } from 'react-redux'
+import { fetchPosts, upvotePost, downvotePost } from '../actions/posts'
+import { fetchComments } from '../actions/comments'
 
 import Comment from './Comment'
 import { formatDate } from '../utils/index'
@@ -21,6 +26,12 @@ class PostDetails extends Component {
         open: false
     }
 
+    componentWillMount() {
+        if(!this.props.post) {
+            this.props.fetchPosts()
+            this.props.fetchComments(this.props.match.params.id);
+        }
+    }
     
     handleClickOpen = () => {
         this.setState({ open: true });
@@ -32,7 +43,9 @@ class PostDetails extends Component {
 
     render() {
         const { comments, post } = this.props
-
+        if(!post) {
+            return(<div>Loading</div>)
+        }
         return(
             <Grid>
                 <Grid container>
@@ -59,6 +72,27 @@ class PostDetails extends Component {
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}/>
                 </Grid>
+                <Grid container alignItems='center'>
+                    <Grid item xs={3} lg={3} md={3}/>
+                    <Grid item>
+                        <Typography>Vote: </Typography>
+                    </Grid>
+                    <Grid item>
+                        <IconButton  color="accent" onClick={() => {this.props.downvotePost(post.id)}}>
+                            <RemoveCircleOutline />
+                        </IconButton>
+                    </Grid>
+                    <Grid item>
+                        <Typography>
+                            {post.voteScore}
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <IconButton  color="primary" onClick={() => {this.props.upvotePost(post.id)}}>
+                            <AddCircleOutline />
+                        </IconButton>
+                    </Grid>
+                </Grid>
                 {comments.length > 0 ? <Grid container alignContent='space-around'>
                     <Grid item xs={3} lg={3} md={3}/>
                     <Grid item xs={6} lg={6} md={6}>
@@ -72,7 +106,7 @@ class PostDetails extends Component {
                     <Grid key={comment.id} container alignContent='center'>
                         <Grid item xs={3} lg={3} md={3}/>
                         <Grid item xs={6} lg={6} md={6}>
-                            <Comment body={comment.body} author={comment.author} voteScore={comment.voteScore} timestamp={comment.timestamp}/>
+                            <Comment id={comment.id} body={comment.body} author={comment.author} voteScore={comment.voteScore} timestamp={comment.timestamp}/>
                         </Grid>
                         <Grid item xs={3} lg={3} md={3}/>
                     </Grid>
@@ -144,4 +178,11 @@ const mapStateToProps = ((state, props) => {
     }
 })
 
-export default connect(mapStateToProps)(PostDetails)
+const mapDispatchToProps = (dispatch => ({
+    fetchComments: (postId) => dispatch(fetchComments(postId)),
+    fetchPosts: () => dispatch(fetchPosts()),
+    upvotePost: (postId) => dispatch(upvotePost(postId)),
+    downvotePost: (postId) => dispatch(downvotePost(postId)),
+  }))
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetails)

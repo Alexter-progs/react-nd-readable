@@ -54,15 +54,29 @@ export function deleteComment(id) {
 }
 
 export function upvoteComment(id) {
-    return {
-        type: UPVOTE_COMMENT,
-        id
+    return (dispatch) => {
+        const url = `${process.env.REACT_APP_BACKEND}/comments/${id}`
+        axios.post(url, {
+            option: 'upVote'
+        }).then(() => {
+            dispatch({
+                type: UPVOTE_COMMENT,
+                id
+            })
+        })
     }
 }
 
 export function downvoteComment(id) {
-    return {
-        type: DOWNVOTE_COMMENT,
-        id
+    return (dispatch) => {
+        const url = `${process.env.REACT_APP_BACKEND}/comments/${id}`
+        axios.post(url, {
+            option: 'downVote'
+        }).then(() => {
+            dispatch({
+                type: DOWNVOTE_COMMENT,
+                id
+            })
+        })
     }
 }

@@ -66,15 +66,30 @@ export function removePost(id) {
 }
 
 export function upvotePost(id) {
-    return {
-        type: UPVOTE_POST,
-        id
+    return (dispatch) => {
+        const url = `${process.env.REACT_APP_BACKEND}/posts/${id}`
+        axios.post(url, {
+            option: 'upVote'
+        }).then(() => {
+            dispatch({
+                type: UPVOTE_POST,
+                id
+            })
+        })
     }
 }
 
 export function downvotePost(id) {
-    return {
-        type: DOWNVOTE_POST,
-        id
+    return (dispatch) => {
+        const url = `${process.env.REACT_APP_BACKEND}/posts/${id}`
+        axios.post(url, {
+            option: 'downVote'
+        }).then(() => {
+            dispatch({
+                type: DOWNVOTE_POST,
+                id
+            })
+        })
+        
     }
 }
