@@ -59,9 +59,14 @@ export function editPost({ title, body }) {
 }
 
 export function removePost(id) {
-    return {
-        type: REMOVE_POST,
-        id
+    return (dispatch) => {
+        const url = `${process.env.REACT_APP_BACKEND}/posts/${id}`
+        axios.delete(url).then(() => {
+            dispatch({
+                type: REMOVE_POST,
+                id
+            })
+        })
     }
 }
 

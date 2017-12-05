@@ -15,7 +15,7 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog'
 import { connect } from 'react-redux'
-import { fetchPosts, upvotePost, downvotePost } from '../actions/posts'
+import { fetchPosts, upvotePost, downvotePost, removePost } from '../actions/posts'
 import { fetchComments } from '../actions/comments'
 
 import Comment from './Comment'
@@ -46,6 +46,16 @@ class PostDetails extends Component {
         if(!post) {
             return(<div>Loading</div>)
         }
+
+        if(post.deleted) {
+            return(
+                <Grid container>
+                    <Grid item xs lg md>
+                        <Typography align='center' type='title'>This post is deleted</Typography>
+                    </Grid>
+                </Grid>
+            )
+        }
         return(
             <Grid>
                 <Grid container>
@@ -60,7 +70,7 @@ class PostDetails extends Component {
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}>
                             <ModeEditIcon />
-                            <DeleteIcon />
+                            <DeleteIcon onClick={() => {this.props.removePost(post.id)}}/>
                     </Grid>
                 </Grid>
                 <Grid container>
@@ -183,6 +193,7 @@ const mapDispatchToProps = (dispatch => ({
     fetchPosts: () => dispatch(fetchPosts()),
     upvotePost: (postId) => dispatch(upvotePost(postId)),
     downvotePost: (postId) => dispatch(downvotePost(postId)),
+    removePost: (postId) => dispatch(removePost(postId))
   }))
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetails)

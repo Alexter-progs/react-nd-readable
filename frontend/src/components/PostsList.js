@@ -28,6 +28,7 @@ class PostsList extends Component {
 const mapStateToProps = ((state, props) => {
   return {
       posts: Object.keys(state.posts)
+              .filter(key => state.posts[key].deleted !== true)
               .map((key) => ({ 
                 ...state.posts[key]
               }))

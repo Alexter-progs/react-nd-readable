@@ -14,7 +14,7 @@ import { connect } from 'react-redux'
 import { fetchComments } from '../actions/comments';
 import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import DeleteIcon from 'material-ui-icons/Delete'
-import {  upvotePost, downvotePost } from '../actions/posts'
+import {  upvotePost, downvotePost, removePost } from '../actions/posts'
 
 class PostCard extends Component {
     componentDidMount() {
@@ -61,7 +61,7 @@ class PostCard extends Component {
                   <IconButton><Comment/></IconButton>
                   <Typography>{ numberOfComments }</Typography>
                     <ModeEditIcon />
-                    <DeleteIcon />
+                    <DeleteIcon onClick={() => {this.props.removePost(post.id)}}/>
                 </CardActions>
               </Card>
             </Grid>
@@ -74,7 +74,7 @@ class PostCard extends Component {
 const mapStateToProps = ((state, props) => {
     return {
         comments: Object.keys(state.comments).filter(key => {
-                    return state.comments[key].parentId === props.post.id
+                    return state.comments[key].parentId === props.post.id && state.comments[key].deleted !== true
                   }).map((key) => {
                     return state.comments[key]
                   })
@@ -84,7 +84,8 @@ const mapStateToProps = ((state, props) => {
   const mapDispatchToProps = (dispatch => ({
     fetchComments: (postId) => dispatch(fetchComments(postId)),
     upvotePost: (postId) => dispatch(upvotePost(postId)),
-    downvotePost: (postId) => dispatch(downvotePost(postId))
+    downvotePost: (postId) => dispatch(downvotePost(postId)),
+    removePost: (postId) => dispatch(removePost(postId))
   }))
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostCard)
