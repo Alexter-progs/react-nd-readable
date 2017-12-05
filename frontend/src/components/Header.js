@@ -6,35 +6,29 @@ import Typography from 'material-ui/Typography'
 import { Link } from 'react-router-dom'
 import AddIcon from 'material-ui-icons/Add'
 import Button from 'material-ui/Button'
-import TextField from 'material-ui/TextField'
-import MenuItem from 'material-ui/Menu/MenuItem'
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from 'material-ui/Dialog'
 import { connect } from 'react-redux'
-
 import { fetchCategories } from '../actions/categories'
 import { capitalize } from '../utils'
+import PostsDialog from './PostsDialog'
 
 class Header extends Component {
     state = {
-        open: false,
-        selectedCategory: ''
+        isDialogOpened: false
     }
-    
-    handleClickOpen = () => {
-    this.setState({ open: true });
-    };
-
-    handleRequestClose = () => {
-    this.setState({ open: false });
-    };
 
     componentDidMount() {
         this.props.fetchCategories()
     }
+
+    onDialogClose = () => {
+        this.setState({
+            isDialogOpened: false
+        })
+    }
+
+    handleClickOpen = () => {
+        this.setState({ isDialogOpened: true });
+    };
 
     render() {
         let categories = this.props.categories
@@ -70,65 +64,7 @@ class Header extends Component {
                         </Toolbar>
                     </AppBar>
                 </Grid>
-                
-                <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-                    <DialogTitle>Add new post</DialogTitle>
-                    <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="title"
-                        label="Title"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="owner"
-                        label="Your name"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        multiline
-                        margin="dense"
-                        id="body"
-                        label="Body"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        select
-                        margin="dense"
-                        id="category"
-                        label="Choose category"
-                        type="text"
-                        value={this.state.selectedCategory}
-                        onChange={(event) => {
-                            this.setState(() => ({
-                                selectedCategory: event.target.value
-                            }))
-                        }}
-                        fullWidth>
-                        {categories.map(category => (
-                            <MenuItem key={category.name} value={category.name}>
-                                {capitalize(category.name)}
-                            </MenuItem>
-                        ))}
-                        </TextField>
-                    </DialogContent>
-                    <DialogActions>
-                    <Button onClick={this.handleRequestClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={this.handleRequestClose} color="primary">
-                        Create
-                    </Button>
-                    </DialogActions>
-                </Dialog>
+                <PostsDialog categories={this.props.categories} open={this.state.isDialogOpened} onDialogClose={this.onDialogClose}/>
             </Grid>
         )
     }
