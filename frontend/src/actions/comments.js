@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { guid } from '../utils'
+
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const REMOVE_COMMENT = 'DELETE_COMMENT'
@@ -27,14 +29,25 @@ export function fetchComments(postId) {
     }
 }
 
-export function addComment({ id, timestamp, body, owner, postId }) {
-    return {
-        type: ADD_COMMENT,
-        id,
-        timestamp,
-        body,
-        owner,
-        postId
+export function addComment(comment) {
+    return (dispatch) => {
+        const url = `${process.env.REACT_APP_BACKEND}/comments`
+        let id = guid()
+        let timestamp = Date.now()
+        
+        axios.post(url, {
+            id,
+            timestamp,
+            ...comment
+        }).then(({data}) => {
+            let comment = data
+            dispatch({
+                type: ADD_COMMENT,
+                comment: {
+                    ...comment
+                }
+            })
+        })
     }
 }
 

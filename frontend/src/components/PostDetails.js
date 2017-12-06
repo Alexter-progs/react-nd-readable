@@ -5,21 +5,16 @@ import CommentIcon from 'material-ui-icons/Comment'
 import Button from 'material-ui/Button'
 import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import DeleteIcon from 'material-ui-icons/Delete'
-import TextField from 'material-ui/TextField'
 import IconButton from 'material-ui/IconButton'
 import RemoveCircleOutline from 'material-ui-icons/RemoveCircleOutline'
 import AddCircleOutline from 'material-ui-icons/AddCircleOutline'
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from 'material-ui/Dialog'
 import { connect } from 'react-redux'
 import { fetchPosts, upvotePost, downvotePost, removePost } from '../actions/posts'
 import { fetchComments } from '../actions/comments'
 
 import Comment from './Comment'
 import { formatDate } from '../utils/index'
+import CommentsDialog from './CommentsDialog'
 
 class PostDetails extends Component {
     state = {
@@ -32,13 +27,14 @@ class PostDetails extends Component {
             this.props.fetchComments(this.props.match.params.id);
         }
     }
-    
+    onDialogClose = () => {
+        this.setState({
+            open: false
+        })
+    }
+
     handleClickOpen = () => {
         this.setState({ open: true });
-        };
-    
-    handleRequestClose = () => {
-        this.setState({ open: false });
     };
 
     render() {
@@ -127,53 +123,14 @@ class PostDetails extends Component {
                 <Grid container>
                     <Grid item xs={3} lg={3} md={3}/>
                     <Grid item xs={6} lg={6} md={6}>
-                        <Button fab color="primary" aria-label="add">
+                        <Button fab color="primary" aria-label="add" onClick={this.handleClickOpen}>
                             <CommentIcon />
                         </Button>
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}/>
                 </Grid>
 
-                <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-                    <DialogTitle>Add new post</DialogTitle>
-                    <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="title"
-                        label="Title"
-                        type="text"
-                        value={post.title}
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        multiline
-                        margin="dense"
-                        id="body"
-                        label="Body"
-                        type="text"
-                        fullWidth
-                        value={post.body}
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="category"
-                        label="Choose category"
-                        type="text"
-                        fullWidth
-                    />
-                    </DialogContent>
-                    <DialogActions>
-                    <Button onClick={this.handleRequestClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={this.handleRequestClose} color="primary">
-                        Create
-                    </Button>
-                    </DialogActions>
-                </Dialog>
+                <CommentsDialog parentId={post.id} open={this.state.open} onDialogClose={this.onDialogClose} editMode={false}/>
             </Grid>
         )
     }

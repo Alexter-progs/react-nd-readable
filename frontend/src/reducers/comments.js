@@ -16,7 +16,11 @@ export function comments(state = {}, action) {
             }
         case ADD_COMMENT:
             return {
-                ...state
+                ...state,
+                [action.comment.id]: {
+                    ...state[action.comment.id],
+                    ...action.comment
+                }
             }
         case EDIT_COMMENT:
             return {
