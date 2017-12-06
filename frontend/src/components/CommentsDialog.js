@@ -44,8 +44,6 @@ class CommentsDialog extends Component {
             body = this.props.comment.body
         }
 
-        console.log(this.props)
-
         return(
             <Dialog open={this.props.open} onRequestClose={this.handleRequestClose} fullWidth>
                 <DialogTitle>Add new comment</DialogTitle>

@@ -15,7 +15,6 @@ export function fetchPosts() {
         axios.get(url)
             .then(({data}) => {
                 let posts = data;
-                console.log(posts);
                 posts = posts.reduce((obj, post) => {
                     obj[post.id] = post
                     return obj
