@@ -108,7 +108,7 @@ class PostDetails extends Component {
                     <Grid item xs={3} lg={3} md={3}/>
                     <Grid item xs={6} lg={6} md={6}>
                         <Typography type='subheading'>
-                            Comments:
+                            Comments: ({comments.length})
                         </Typography>
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}/>
