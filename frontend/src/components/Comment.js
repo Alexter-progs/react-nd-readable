@@ -31,7 +31,7 @@ class Comment extends Component {
                         <Grid item xs={7} lg={7} md={7}/>
                         <Grid item xs={2} lg={2} md={2}>
                             <ModeEditIcon />
-                            <DeleteIcon onClick={() => {this.props.deleteComment(id)}}/>
+                            <DeleteIcon onClick={() => {this.props.removeComment(id)}}/>
                         </Grid>
                     </Grid>
                     
