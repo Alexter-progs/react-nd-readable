@@ -144,7 +144,7 @@ const mapStateToProps = ((state, props) => {
     return {
         post: state.posts[postId],
         comments: Object.keys(state.comments).filter(key => {
-                        return postId === state.comments[key].parentId
+                        return postId === state.comments[key].parentId && state.comments[key].deleted !== true
                     }).map(key => {
                         return state.comments[key]
                     })
