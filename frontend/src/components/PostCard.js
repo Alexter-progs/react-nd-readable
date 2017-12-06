@@ -15,11 +15,26 @@ import { fetchComments } from '../actions/comments';
 import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import DeleteIcon from 'material-ui-icons/Delete'
 import {  upvotePost, downvotePost, removePost } from '../actions/posts'
+import PostsDialog from './PostsDialog'
 
 class PostCard extends Component {
+  state = {
+    open: false
+  }
     componentDidMount() {
         this.props.fetchComments(this.props.post.id);
     }
+
+    onDialogClose = () => {
+      this.setState({
+          open: false
+      })
+  }
+
+  handleClickOpen = () => {
+      this.setState({ open: true });
+  };
+
 
     render() {
         const post = this.props.post
@@ -60,12 +75,13 @@ class PostCard extends Component {
                   </Link>
                   <IconButton><Comment/></IconButton>
                   <Typography>{ numberOfComments }</Typography>
-                    <ModeEditIcon />
+                    <ModeEditIcon onClick={this.handleClickOpen}/>
                     <DeleteIcon onClick={() => {this.props.removePost(post.id)}}/>
                 </CardActions>
               </Card>
             </Grid>
             <Grid item xs={3} lg={3} md={3}/>
+            <PostsDialog postId={post.id} body={post.body} title={post.title} open={this.state.open} onDialogClose={this.onDialogClose} editMode={true}/>
           </Grid>
         )
     }

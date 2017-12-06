@@ -15,10 +15,12 @@ import { fetchComments } from '../actions/comments'
 import Comment from './Comment'
 import { formatDate } from '../utils/index'
 import CommentsDialog from './CommentsDialog'
+import PostsDialog from './PostsDialog'
 
 class PostDetails extends Component {
     state = {
-        open: false
+        commentsDialogOpen: false,
+        postsDialogOpen: false
     }
 
     componentWillMount() {
@@ -27,14 +29,14 @@ class PostDetails extends Component {
             this.props.fetchComments(this.props.match.params.id);
         }
     }
-    onDialogClose = () => {
+    onDialogClose = (key) => {
         this.setState({
-            open: false
+            [key]: false
         })
     }
 
-    handleClickOpen = () => {
-        this.setState({ open: true });
+    handleClickOpen = (key) => {
+        this.setState({ [key]: true });
     };
 
     render() {
@@ -65,7 +67,7 @@ class PostDetails extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}>
-                            <ModeEditIcon />
+                            <ModeEditIcon onClick={() => {this.handleClickOpen('postsDialogOpen')}}/>
                             <DeleteIcon onClick={() => {
                                     this.props.removePost(post.id)
                                     this.props.history.push('/')
@@ -123,14 +125,15 @@ class PostDetails extends Component {
                 <Grid container>
                     <Grid item xs={3} lg={3} md={3}/>
                     <Grid item xs={6} lg={6} md={6}>
-                        <Button fab color="primary" aria-label="add" onClick={this.handleClickOpen}>
+                        <Button fab color="primary" aria-label="add" onClick={() => {this.handleClickOpen('commentsDialogOpen')}}>
                             <CommentIcon />
                         </Button>
                     </Grid>
                     <Grid item xs={3} lg={3} md={3}/>
                 </Grid>
 
-                <CommentsDialog parentId={post.id} open={this.state.open} onDialogClose={this.onDialogClose} editMode={false}/>
+                <CommentsDialog parentId={post.id} open={this.state.commentsDialogOpen} onDialogClose={() => {this.onDialogClose('commentsDialogOpen')}} editMode={false}/>
+                <PostsDialog postId={post.id} body={post.body} title={post.title} open={this.state.postsDialogOpen} onDialogClose={() => {this.onDialogClose('postsDialogOpen')}} editMode={true}/>
             </Grid>
         )
     }

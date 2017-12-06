@@ -24,7 +24,10 @@ export function posts(state = {}, action) {
             }
         case EDIT_POST:
             return {
-                ...state
+                ...state,
+                [action.post.id]: {
+                    ...action.post
+                }
             }
         case REMOVE_POST: 
             let newState = Object.keys(state)

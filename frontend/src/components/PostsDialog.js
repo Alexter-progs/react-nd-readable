@@ -10,7 +10,7 @@ import Dialog, {
 import { connect } from 'react-redux'
 
 import { capitalize } from '../utils'
-import { addPost } from '../actions/posts'
+import { addPost, editPost } from '../actions/posts'
 
 class PostsDialog extends Component {
     state = {
@@ -32,6 +32,7 @@ class PostsDialog extends Component {
 
     handleRequestSave = () => {
         if(this.props.editMode) {
+            this.props.editPost(this.props.postId, this.state.body, this.state.title)
         } else {
             this.props.addPost({
                 ...this.state
@@ -42,7 +43,16 @@ class PostsDialog extends Component {
     }
 
     render() {
-        const { categories } = this.props
+        let categories = []
+        let body = null
+        let title = null
+
+        if(this.props.editMode) {
+            body = this.props.body
+            title = this.props.title
+        } else {
+            categories = this.props.categories
+        }
         return (
             <Dialog open={this.props.open} onRequestClose={this.handleRequestClose}>
                 <DialogTitle>Add new post</DialogTitle>
@@ -53,10 +63,11 @@ class PostsDialog extends Component {
                         id="title"
                         label="Title"
                         type="text"
+                        defaultValue={title}
                         onChange={this.handleChange('title')}
                         fullWidth
                     />
-                    <TextField
+                    {!this.props.editMode ? (<TextField
                         autoFocus
                         margin="dense"
                         id="owner"
@@ -64,7 +75,7 @@ class PostsDialog extends Component {
                         type="text"
                         onChange={this.handleChange('author')}
                         fullWidth
-                    />
+                    />) : null}
                     <TextField
                         autoFocus
                         multiline
@@ -72,10 +83,11 @@ class PostsDialog extends Component {
                         id="body"
                         label="Body"
                         type="text"
+                        defaultValue={body}
                         onChange={this.handleChange('body')}
                         fullWidth
                     />
-                    <TextField
+                    {!this.props.editMode ? (<TextField
                         autoFocus
                         select
                         margin="dense"
@@ -90,14 +102,14 @@ class PostsDialog extends Component {
                                 {capitalize(category.name)}
                             </MenuItem>
                         ))}
-                    </TextField>
+                    </TextField>) : null}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleRequestClose} color="primary">
                         Cancel
                     </Button>
                     <Button onClick={this.handleRequestSave} color="primary">
-                        Create
+                        {this.props.editMode ? 'Save' : 'Create'}
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -106,7 +118,8 @@ class PostsDialog extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addPost: (post) => dispatch(addPost(post))
+    addPost: (post) => dispatch(addPost(post)),
+    editPost: (id, body, title) => dispatch(editPost(id, body, title))
 })
 
 export default connect(null, mapDispatchToProps)(PostsDialog)

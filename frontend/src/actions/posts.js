@@ -49,11 +49,22 @@ export function addPost(post) {
     }
 }
 
-export function editPost({ title, body }) {
-    return {
-        type: EDIT_POST,
-        title,
-        body
+export function editPost(id, body, title) {
+    return dispatch => {
+        const url = `${process.env.REACT_APP_BACKEND}/posts/${id}`
+        axios.put(url, {
+            body,
+            title
+        }).then(({data}) => {
+            const post = data
+            dispatch({
+                type: EDIT_POST,
+                post: {
+                    ...post
+                }
+            })
+        })
+        
     }
 }
 
