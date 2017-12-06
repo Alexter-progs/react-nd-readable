@@ -7,7 +7,7 @@ import Dialog, {
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import { connect } from 'react-redux'
-import { addComment } from '../actions/comments'
+import { addComment, editComment } from '../actions/comments'
 
 class CommentsDialog extends Component {
     state = {
@@ -27,6 +27,7 @@ class CommentsDialog extends Component {
 
     handleRequestSave = () => {
         if(this.props.editMode) {
+            this.props.editComment(this.props.comment.id, this.state.body)
         } else {
             this.props.addComment({
                 ...this.state, 
@@ -38,11 +39,18 @@ class CommentsDialog extends Component {
     }
 
     render() {
+        let body = '';
+        if(this.props.editMode) {
+            body = this.props.comment.body
+        }
+
+        console.log(this.props)
+
         return(
-            <Dialog open={this.props.open} onRequestClose={this.handleRequestClose}>
+            <Dialog open={this.props.open} onRequestClose={this.handleRequestClose} fullWidth>
                 <DialogTitle>Add new comment</DialogTitle>
                 <DialogContent>
-                    <TextField
+                    {!this.props.editMode ? (<TextField
                         autoFocus
                         margin="dense"
                         id="author"
@@ -50,7 +58,7 @@ class CommentsDialog extends Component {
                         type="text"
                         fullWidth
                         onChange={this.handleChange('author')}
-                    />
+                    />) : null}
                     <TextField
                         autoFocus
                         multiline
@@ -59,6 +67,7 @@ class CommentsDialog extends Component {
                         label="Enter your comment"
                         type="text"
                         fullWidth
+                        defaultValue={this.props.editMode ? body : ''}
                         onChange={this.handleChange('body')}
                     />
                 </DialogContent>
@@ -76,7 +85,8 @@ class CommentsDialog extends Component {
 }
 
 const mapDispatchToProps = (dispatch => ({
-    addComment: (comment) => dispatch(addComment(comment))
+    addComment: (comment) => dispatch(addComment(comment)),
+    editComment: (id, body) => dispatch(editComment(id, body))
 }))
 
 export default connect(null, mapDispatchToProps)(CommentsDialog)

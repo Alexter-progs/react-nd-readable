@@ -115,7 +115,7 @@ class PostDetails extends Component {
                     <Grid key={comment.id} container alignContent='center'>
                         <Grid item xs={3} lg={3} md={3}/>
                         <Grid item xs={6} lg={6} md={6}>
-                            <Comment id={comment.id} body={comment.body} author={comment.author} voteScore={comment.voteScore} timestamp={comment.timestamp}/>
+                            <Comment parentId={post.id} id={comment.id} body={comment.body} author={comment.author} voteScore={comment.voteScore} timestamp={comment.timestamp}/>
                         </Grid>
                         <Grid item xs={3} lg={3} md={3}/>
                     </Grid>

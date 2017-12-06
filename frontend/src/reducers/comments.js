@@ -24,7 +24,10 @@ export function comments(state = {}, action) {
             }
         case EDIT_COMMENT:
             return {
-                ...state
+                ...state,
+                [action.comment.id]: {
+                    ...action.comment
+                }
         }
         case REMOVE_COMMENT: 
             let newState = Object.keys(state)

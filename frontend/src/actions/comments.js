@@ -51,12 +51,23 @@ export function addComment(comment) {
     }
 }
 
-export function editComment({ timestamp, body }) {
-    return {
-        type: EDIT_COMMENT,
-        timestamp,
-        body
-    }
+export function editComment(id, body) {
+    let timestamp = Date.now()
+    return (dispatch => {
+        const url = `${process.env.REACT_APP_BACKEND}/comments/${id}`
+        axios.put(url, {
+            body,
+            timestamp
+        }).then(({data}) => {
+            const comment = data
+            dispatch({
+                type: EDIT_COMMENT,
+                comment: {
+                    ...comment
+                }
+            })
+        })
+    })
 }
 
 export function removeComment(id) {
