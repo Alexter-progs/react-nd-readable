@@ -37,7 +37,8 @@ export function addPost(post) {
             id,
             timestamp,
             ...post
-        }).then(post => {
+        }).then(({data}) => {
+            let post = data
             dispatch({
                 type: ADD_POST,
                 post: {
